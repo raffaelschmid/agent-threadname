@@ -6,15 +6,25 @@ import java.util.regex.Pattern;
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
  */
 public class InstrumentationFilter {
+
     private final Pattern classPattern;
     private final Pattern methodPattern;
 
-    public InstrumentationFilter(Pattern classPattern, Pattern methodPattern) {
-        this.classPattern = classPattern;
-        this.methodPattern = methodPattern;
+
+    public InstrumentationFilter(String classPattern, String methodPattern) {
+        this.classPattern = Pattern.compile(classPattern);
+        this.methodPattern = Pattern.compile(methodPattern);
     }
 
     public boolean shouldInstrumentClass(String className) {
-        return "spec/validity/ExpectedResourceDigests".equals(className);
+        return classPattern.matcher(normalizeClassName(className)).matches();
+    }
+
+    private String normalizeClassName(String className) {
+        return className.replaceAll("/", ".");
+    }
+
+    public boolean shouldInstrumentMethodClass(String methodName) {
+        return methodPattern.matcher(methodName).matches();
     }
 }
