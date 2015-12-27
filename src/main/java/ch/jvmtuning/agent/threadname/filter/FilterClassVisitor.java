@@ -1,4 +1,4 @@
-package ch.jvmtuning.agent.threadname;
+package ch.jvmtuning.agent.threadname.filter;
 
 import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import org.objectweb.asm.ClassVisitor;

@@ -20,7 +20,7 @@ task buildAgent(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Agent to set the threadname',
                 'Implementation-Version': project.version,
-                'Premain-Class':  'ch.jvmtuning.agent.threadname.Agent',
+                'Premain-Class':  'ch.jvmtuning.agent.threadname.ThreadNameSetterAgent',
                 'Can-Redefine-Classes': true,
                 'Can-Retransform-Classes': true
     }

@@ -1,5 +1,6 @@
-package ch.jvmtuning.agent.threadname;
+package ch.jvmtuning.agent.threadname.instrumentation;
 
+import ch.jvmtuning.agent.threadname.filter.FilterClassVisitor;
 import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
