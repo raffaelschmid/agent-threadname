@@ -1,4 +1,4 @@
-package ch.jvmtuning.agent.threadname;
+package ch.jvmtuning.agent.threadname.filter;
 
 import java.util.regex.Pattern;
 

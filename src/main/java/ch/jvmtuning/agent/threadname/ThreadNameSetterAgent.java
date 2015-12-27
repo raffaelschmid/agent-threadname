@@ -1,5 +1,6 @@
 package ch.jvmtuning.agent.threadname;
 
+import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import ch.jvmtuning.agent.threadname.filter.Options;
 
 import java.lang.instrument.Instrumentation;
@@ -7,7 +8,7 @@ import java.lang.instrument.Instrumentation;
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
  */
-public class Agent {
+public class ThreadNameSetterAgent {
 
     /**
      * This method will be invoked when the agent is attached.
@@ -30,7 +31,7 @@ public class Agent {
                 options.getMethodPattern()
         );
 
-        instrumentation.addTransformer(new ThreadNameTransformer(instrumentationFilter));
+        instrumentation.addTransformer(new Transformer(instrumentationFilter));
     }
 
     /**

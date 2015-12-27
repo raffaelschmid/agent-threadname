@@ -1,5 +1,6 @@
 package ch.jvmtuning.agent.threadname;
 
+import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
