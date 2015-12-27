@@ -1,22 +1,43 @@
 apply plugin: 'java'
 
-
-repositories { 
-    mavenCentral() 
-}
-
-jar {
-    baseName = 'agent-threadname'
-    version =  '0.0.1'
+repositories {
+    mavenCentral()
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {
-
+jar {
+    baseName = 'agent-threadname'
+    version = '0.0.1'
 }
 
+/**
+ * Builds the fat jar which can be used as java agent.
+ */
+task buildAgent(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Agent to set the threadname',
+                'Implementation-Version': project.version,
+                'Premain-Class':  'ch.jvmtuning.agent.threadname.Agent',
+                'Can-Redefine-Classes': true,
+                'Can-Retransform-Classes': true
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+/**
+ * Dependencies (will be put into fat jar).
+ */
+dependencies {
+    compile 'org.ow2.asm:asm:5.0.4'
+}
+
+/**
+ * Gradle wrapper.
+ */
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
