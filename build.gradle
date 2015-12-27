@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+
+repositories { 
+    mavenCentral() 
+}
+
+jar {
+    baseName = 'agent-threadname'
+    version =  '0.0.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
