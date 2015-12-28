@@ -24,7 +24,7 @@ public class InstrumentationFilter {
         return className.replaceAll("/", ".");
     }
 
-    public boolean shouldInstrumentMethodClass(String methodName) {
+    public boolean shouldInstrumentMethod(String methodName) {
         return methodPattern.matcher(methodName).matches();
     }
 }

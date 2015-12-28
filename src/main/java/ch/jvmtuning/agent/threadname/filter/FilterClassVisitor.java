@@ -1,9 +1,8 @@
 package ch.jvmtuning.agent.threadname.filter;
 
-import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import asm.ClassVisitor;
+import asm.MethodVisitor;
+import asm.Opcodes;
 
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
@@ -24,8 +23,12 @@ public abstract class FilterClassVisitor extends ClassVisitor {
 
         final MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
 
-        return (mv != null && instrumentationFilter.shouldInstrumentMethodClass(name)) ? createMethodVisitor(mv) : mv;
+        if ((mv == null) || (!instrumentationFilter.shouldInstrumentMethod(name))) {
+            return mv;
+        }
+
+        return createMethodVisitor(mv, access, name, desc);
     }
 
-    protected abstract MethodVisitor createMethodVisitor(MethodVisitor mv);
+    protected abstract MethodVisitor createMethodVisitor(MethodVisitor mv, int access, String name, String desc);
 }

@@ -3,9 +3,9 @@ package ch.jvmtuning.agent.threadname;
 
 import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import ch.jvmtuning.agent.threadname.instrumentation.ThreadNameSetterClassVisitor;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
+import asm.ClassReader;
+import asm.ClassVisitor;
+import asm.ClassWriter;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -38,7 +38,7 @@ public class Transformer implements ClassFileTransformer {
             final ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
             // visitor will be staged between reader and writer
-            ClassVisitor classVisitor = new ThreadNameSetterClassVisitor(classWriter, instrumentationFilter);
+            ClassVisitor classVisitor = new ThreadNameSetterClassVisitor(classWriter, instrumentationFilter, className);
 
             // initiate visitor pattern
             classReader.accept(classVisitor, 0);
