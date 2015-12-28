@@ -3,9 +3,9 @@ package ch.jvmtuning.agent.threadname;
 
 import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import ch.jvmtuning.agent.threadname.instrumentation.ThreadNameSetterClassVisitor;
-import asm.ClassReader;
-import asm.ClassVisitor;
-import asm.ClassWriter;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;

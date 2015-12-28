@@ -1,8 +1,8 @@
 package ch.jvmtuning.agent.threadname.instrumentation;
 
-import asm.MethodVisitor;
-import asm.Opcodes;
-import asm.Type;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 
 public class ThreadNameSetterMethodVisitor extends StartEndMethodVisitor {
 

@@ -1,8 +1,8 @@
 package ch.jvmtuning.agent.threadname.instrumentation;
 
 
-import asm.MethodVisitor;
-import asm.Opcodes;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public abstract class StartEndMethodVisitor extends MethodVisitor {
     protected final int access;

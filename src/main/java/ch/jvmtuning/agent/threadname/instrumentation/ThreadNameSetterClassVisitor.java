@@ -2,8 +2,9 @@ package ch.jvmtuning.agent.threadname.instrumentation;
 
 import ch.jvmtuning.agent.threadname.filter.FilterClassVisitor;
 import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
-import asm.ClassVisitor;
-import asm.MethodVisitor;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+
 
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>

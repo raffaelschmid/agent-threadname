@@ -1,8 +1,8 @@
 package ch.jvmtuning.agent.threadname.filter;
 
-import asm.ClassVisitor;
-import asm.MethodVisitor;
-import asm.Opcodes;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
