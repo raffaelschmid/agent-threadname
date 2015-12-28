@@ -35,7 +35,7 @@ task buildAgent(type: Jar) {
  * Dependencies (will be put into fat jar).
  */
 dependencies {
-    compile     'org.ow2.asm:asm:5.0.4'
+    compile     'net.bytebuddy:byte-buddy:0.7.7'
     testCompile 'junit:junit:4.12'
 }
 

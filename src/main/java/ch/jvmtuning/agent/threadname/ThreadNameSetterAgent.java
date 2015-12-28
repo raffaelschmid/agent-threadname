@@ -1,9 +1,15 @@
 package ch.jvmtuning.agent.threadname;
 
-import ch.jvmtuning.agent.threadname.filter.InstrumentationFilter;
 import ch.jvmtuning.agent.threadname.filter.Options;
+import ch.jvmtuning.agent.threadname.instrumentation.ThreadNameSetter;
+import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.implementation.SuperMethodCall;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import java.lang.instrument.Instrumentation;
+
+import static net.bytebuddy.implementation.MethodDelegation.to;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
@@ -26,12 +32,17 @@ public class ThreadNameSetterAgent {
         System.out.println("Method Pattern: " + options.getMethodPattern());
         System.out.println("------------------------------------------------------------");
 
-        final InstrumentationFilter instrumentationFilter = new InstrumentationFilter(
-                options.getClassPattern(),
-                options.getMethodPattern()
-        );
 
-        instrumentation.addTransformer(new Transformer(instrumentationFilter));
+        new AgentBuilder.Default()
+                .type(ElementMatchers.nameMatches(options.getClassPattern()))
+                .transform((builder, type) -> {
+                    return builder
+                            .method(ElementMatchers.nameMatches(options.getMethodPattern()))
+                            .intercept(to(new ThreadNameSetter()).filter(named("before"))
+                                    .andThen(SuperMethodCall.INSTANCE
+                                            .andThen(to(new ThreadNameSetter()).filter(named("after")))));
+                })
+                .installOn(instrumentation);
     }
 
     /**
