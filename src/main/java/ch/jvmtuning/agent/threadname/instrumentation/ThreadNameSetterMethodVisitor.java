@@ -6,28 +6,31 @@ import org.objectweb.asm.Type;
 
 public class ThreadNameSetterMethodVisitor extends StartEndMethodVisitor {
 
-	public ThreadNameSetterMethodVisitor(MethodVisitor mv, int access, MethodKey methodKey, String desc) {
-		super(mv, access, methodKey, desc);
-	}
+    public ThreadNameSetterMethodVisitor(MethodVisitor mv, int access, MethodKey methodKey, String desc) {
+        super(mv, access, methodKey, desc);
+    }
 
-	@Override
-	protected void insertPrologue() {
+    @Override
+    protected void insertPrologue() {
 
-		System.out.println("Instrumenting method: " + methodKey);
+        // load the method identifier into the stack
+        mv.visitLdcInsn(methodKey.toString());
 
-		// load the method identifier into the stack
-		mv.visitLdcInsn(methodKey.toString());
+        // load the method's arguments as an Object[]
+        loadArgsIntoObjectArray();
 
 
         // invoke the Thread name setter
-		super.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getInternalName(ThreadNameSetter.class), "setThreadName","(Ljava/lang/String;)V", false);
-	}
+        super.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getInternalName(ThreadNameSetter.class), "setThreadName",
+                "(Ljava/lang/String;[Ljava/lang/Object;)V", false);
+    }
 
-	@Override
-	protected void insertEpilogue() {
-		
-		//restore the thread name
-		super.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getInternalName(ThreadNameSetter.class), "unsetThreadName", "()V", false);
 
-	}
+    @Override
+    protected void insertEpilogue() {
+
+        //restore the thread name
+        //super.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getInternalName(ThreadNameSetter.class), "unsetThreadName", "()V", false);
+
+    }
 }

@@ -1,4 +1,4 @@
-package test;
+package ch.jvmtuning.agent.threadname;
 
 /**
  * @author <A HREF="mailto:ras@panter.ch">Raffael Schmid</A>
@@ -7,10 +7,10 @@ public class IntegrationTest {
 
     public static void main(String... args) {
 
-        IntegrationTest.test("d");
+        IntegrationTest.test("one", "two", 3);
     }
 
-    public static void test(String s) {
+    public static void test(String firstParameter, String secondParameter, int thirdParameter) {
         final int max = Integer.MAX_VALUE;
 
         for (int i = 0; i < max; i++) {
